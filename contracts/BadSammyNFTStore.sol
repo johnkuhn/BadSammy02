@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
 /**
  * BadSammyNFTStore (OZ v5)
@@ -17,7 +18,8 @@ import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
  * - Store holds inventory so it can transfer immediately
  * - Auto-picks the next token owned by the store
  */
-contract BadSammyNFTStore is ReentrancyGuard, Ownable {
+contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
+
     using SafeERC20 for IERC20;
 
     struct Tier {
@@ -190,6 +192,15 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable {
         }
     }
 
+    // Safety: receive NFTs. so our store contract can be sent the NFTs that it can then sell in Base Mini App.
+    function onERC721Received(
+        address,
+        address,
+        uint256,
+        bytes calldata
+    ) external pure override returns (bytes4) {
+        return IERC721Receiver.onERC721Received.selector;
+    }
 
     // Safety: receive ETH
     receive() external payable {}
