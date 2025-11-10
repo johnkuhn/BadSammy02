@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract BadSammyDeployer is Ownable {
     // ---- Addresses you asked to be constants ----
-    address constant CONTRACT_OWNER = 0x3Cc463fd67146A6951062B85428b5f77828D5D09;
+    address constant CONTRACT_OWNER_MINT_TO = 0x3Cc463fd67146A6951062B85428b5f77828D5D09;
     address payable public constant TREASURY = payable(0xDa8291d1F21643c441d2637da5ae7F0990ab5678);
     address public constant USDC = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // 6 decimals
 
@@ -64,6 +64,8 @@ contract BadSammyDeployer is Ownable {
     event BaseURIFrozen(address indexed nft);
     event AllBaseURIsFrozen();
     event TiersConfigured();
+    event OwnershipTransferredAll(address newOwner);
+    //event OwnershipTransferred(address indexed contractAddress, address indexed newOwner);
 
     constructor() Ownable(msg.sender) {}
 
@@ -79,13 +81,13 @@ contract BadSammyDeployer is Ownable {
     ) {
         require(address(nft1) == address(0), "Already deployed");
 
-        nft1 = new BadSammyNFT(NAME1, SYM1, SUP1, CONTRACT_OWNER);
-        nft2 = new BadSammyNFT(NAME2, SYM2, SUP2, CONTRACT_OWNER);
-        nft3 = new BadSammyNFT(NAME3, SYM3, SUP3, CONTRACT_OWNER);
-        nft4 = new BadSammyNFT(NAME4, SYM4, SUP4, CONTRACT_OWNER);
-        nft5 = new BadSammyNFT(NAME5, SYM5, SUP5, CONTRACT_OWNER);
+        nft1 = new BadSammyNFT(NAME1, SYM1, SUP1, address(this));
+        nft2 = new BadSammyNFT(NAME2, SYM2, SUP2, address(this));
+        nft3 = new BadSammyNFT(NAME3, SYM3, SUP3, address(this));
+        nft4 = new BadSammyNFT(NAME4, SYM4, SUP4, address(this));
+        nft5 = new BadSammyNFT(NAME5, SYM5, SUP5, address(this));
 
-        store = new BadSammyNFTStore(CONTRACT_OWNER, TREASURY, USDC);
+        store = new BadSammyNFTStore(address(this), TREASURY, USDC);
 
         emit Deployed(address(nft1), address(nft2), address(nft3), address(nft4), address(nft5), address(store));
         return (address(nft1), address(nft2), address(nft3), address(nft4), address(nft5), address(store));
@@ -102,11 +104,11 @@ contract BadSammyDeployer is Ownable {
 
     // Mint full max supply of every tier to the one wallet (can be heavy!)
     function mintAllFull() external onlyOwner {
-        nft1.mintTo(CONTRACT_OWNER, SUP1);
-        nft2.mintTo(CONTRACT_OWNER, SUP2);
-        nft3.mintTo(CONTRACT_OWNER, SUP3);
-        nft4.mintTo(CONTRACT_OWNER, SUP4);
-        nft5.mintTo(CONTRACT_OWNER, SUP5);
+        nft1.mintTo(CONTRACT_OWNER_MINT_TO, SUP1);
+        nft2.mintTo(CONTRACT_OWNER_MINT_TO, SUP2);
+        nft3.mintTo(CONTRACT_OWNER_MINT_TO, SUP3);
+        nft4.mintTo(CONTRACT_OWNER_MINT_TO, SUP4);
+        nft5.mintTo(CONTRACT_OWNER_MINT_TO, SUP5);
     }
 
     // Safer batching if full mint runs out of gas
@@ -131,7 +133,7 @@ contract BadSammyDeployer is Ownable {
         BadSammyNFT nft = BadSammyNFT(nftAddress);
 
         // Will revert automatically if it exceeds max supply
-        nft.mintTo(CONTRACT_OWNER, quantity);
+        nft.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
     }
 
     // ---------------------------------------------------------
@@ -159,7 +161,7 @@ contract BadSammyDeployer is Ownable {
             revert("Invalid tier");
         }
 
-        nft.mintTo(CONTRACT_OWNER, quantity);
+        nft.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
     }
 
 
@@ -167,7 +169,7 @@ contract BadSammyDeployer is Ownable {
         uint256 remaining = maxSupply - c.minted();
         while (remaining > 0) {
             uint256 m = remaining > batch ? batch : remaining;
-            c.mintTo(CONTRACT_OWNER, m);
+            c.mintTo(CONTRACT_OWNER_MINT_TO, m);
             remaining -= m;
         }
     }
@@ -202,4 +204,34 @@ contract BadSammyDeployer is Ownable {
         nft5.transferOwnership(newOwner);
         store.transferOwnership(newOwner);
     }
+
+    // ---------------------------------------------------------
+// ✅ Transfer ownership of all NFTs + Store to CONTRACT_OWNER_MINT_TO
+// ---------------------------------------------------------
+    function transferAllContractsToOwner() external onlyOwner {
+    require(CONTRACT_OWNER_MINT_TO != address(0), "Invalid owner");
+
+        // Transfer NFT ownerships
+        nft1.transferOwnership(CONTRACT_OWNER_MINT_TO);
+        emit OwnershipTransferred(address(nft1), CONTRACT_OWNER_MINT_TO);
+
+        nft2.transferOwnership(CONTRACT_OWNER_MINT_TO);
+        emit OwnershipTransferred(address(nft2), CONTRACT_OWNER_MINT_TO);
+
+        nft3.transferOwnership(CONTRACT_OWNER_MINT_TO);
+        emit OwnershipTransferred(address(nft3), CONTRACT_OWNER_MINT_TO);
+
+        nft4.transferOwnership(CONTRACT_OWNER_MINT_TO);
+        emit OwnershipTransferred(address(nft4), CONTRACT_OWNER_MINT_TO);
+
+        nft5.transferOwnership(CONTRACT_OWNER_MINT_TO);
+        emit OwnershipTransferred(address(nft5), CONTRACT_OWNER_MINT_TO);
+
+        // Transfer Store ownership
+        store.transferOwnership(CONTRACT_OWNER_MINT_TO);
+        emit OwnershipTransferred(address(store), CONTRACT_OWNER_MINT_TO);
+
+        emit OwnershipTransferredAll(CONTRACT_OWNER_MINT_TO);
+    }
+
 }

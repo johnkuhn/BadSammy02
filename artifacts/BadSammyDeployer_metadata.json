@@ -115,6 +115,19 @@
 			},
 			{
 				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferredAll",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
 				"inputs": [],
 				"name": "TiersConfigured",
 				"type": "event"
@@ -424,6 +437,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "transferAllContractsToOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -724,11 +744,11 @@
 			]
 		},
 		"scripts/Deployer.sol": {
-			"keccak256": "0x402f9f8d9380e8fd0014776ac1f0adc567308c6258cc2816ed00e9da6f0a4fe6",
+			"keccak256": "0x9da335242c4a228cc87ab048d7d3343b00d4fc75e076c908cc8106d9137cc34a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d8b4a6c41372848e774e775ceda7709777550a2e5347df82a8242cb9f807c01b",
-				"dweb:/ipfs/QmNzKD9YyQR1qMwBYGC3Fss1ULiArmfhjiQW8Bsfa3CPeT"
+				"bzz-raw://2a2d3eec497e9ff9fde652b0d5d652a4d9d92e25f3d1b7d01ea5a5c5b6bd3ad0",
+				"dweb:/ipfs/QmaXPMvEHLZwoPcX4a1ik6YKRjDSoZykPd26ovWVLjqxcX"
 			]
 		}
 	},
