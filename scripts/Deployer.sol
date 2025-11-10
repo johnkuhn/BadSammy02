@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract BadSammyDeployer is Ownable {
     // ---- Addresses you asked to be constants ----
-    address constant WALLET_MINT_TO = 0x3Cc463fd67146A6951062B85428b5f77828D5D09;
+    address constant CONTRACT_OWNER = 0x3Cc463fd67146A6951062B85428b5f77828D5D09;
     address payable public constant TREASURY = payable(0xDa8291d1F21643c441d2637da5ae7F0990ab5678);
     address public constant USDC = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // 6 decimals
 
@@ -79,13 +79,13 @@ contract BadSammyDeployer is Ownable {
     ) {
         require(address(nft1) == address(0), "Already deployed");
 
-        nft1 = new BadSammyNFT(NAME1, SYM1, SUP1, address(this));
-        nft2 = new BadSammyNFT(NAME2, SYM2, SUP2, address(this));
-        nft3 = new BadSammyNFT(NAME3, SYM3, SUP3, address(this));
-        nft4 = new BadSammyNFT(NAME4, SYM4, SUP4, address(this));
-        nft5 = new BadSammyNFT(NAME5, SYM5, SUP5, address(this));
+        nft1 = new BadSammyNFT(NAME1, SYM1, SUP1, CONTRACT_OWNER);
+        nft2 = new BadSammyNFT(NAME2, SYM2, SUP2, CONTRACT_OWNER);
+        nft3 = new BadSammyNFT(NAME3, SYM3, SUP3, CONTRACT_OWNER);
+        nft4 = new BadSammyNFT(NAME4, SYM4, SUP4, CONTRACT_OWNER);
+        nft5 = new BadSammyNFT(NAME5, SYM5, SUP5, CONTRACT_OWNER);
 
-        store = new BadSammyNFTStore(address(this), TREASURY, USDC);
+        store = new BadSammyNFTStore(CONTRACT_OWNER, TREASURY, USDC);
 
         emit Deployed(address(nft1), address(nft2), address(nft3), address(nft4), address(nft5), address(store));
         return (address(nft1), address(nft2), address(nft3), address(nft4), address(nft5), address(store));
@@ -102,11 +102,11 @@ contract BadSammyDeployer is Ownable {
 
     // Mint full max supply of every tier to the one wallet (can be heavy!)
     function mintAllFull() external onlyOwner {
-        nft1.mintTo(WALLET_MINT_TO, SUP1);
-        nft2.mintTo(WALLET_MINT_TO, SUP2);
-        nft3.mintTo(WALLET_MINT_TO, SUP3);
-        nft4.mintTo(WALLET_MINT_TO, SUP4);
-        nft5.mintTo(WALLET_MINT_TO, SUP5);
+        nft1.mintTo(CONTRACT_OWNER, SUP1);
+        nft2.mintTo(CONTRACT_OWNER, SUP2);
+        nft3.mintTo(CONTRACT_OWNER, SUP3);
+        nft4.mintTo(CONTRACT_OWNER, SUP4);
+        nft5.mintTo(CONTRACT_OWNER, SUP5);
     }
 
     // Safer batching if full mint runs out of gas
@@ -131,7 +131,7 @@ contract BadSammyDeployer is Ownable {
         BadSammyNFT nft = BadSammyNFT(nftAddress);
 
         // Will revert automatically if it exceeds max supply
-        nft.mintTo(WALLET_MINT_TO, quantity);
+        nft.mintTo(CONTRACT_OWNER, quantity);
     }
 
     // ---------------------------------------------------------
@@ -159,7 +159,7 @@ contract BadSammyDeployer is Ownable {
             revert("Invalid tier");
         }
 
-        nft.mintTo(WALLET_MINT_TO, quantity);
+        nft.mintTo(CONTRACT_OWNER, quantity);
     }
 
 
@@ -167,7 +167,7 @@ contract BadSammyDeployer is Ownable {
         uint256 remaining = maxSupply - c.minted();
         while (remaining > 0) {
             uint256 m = remaining > batch ? batch : remaining;
-            c.mintTo(WALLET_MINT_TO, m);
+            c.mintTo(CONTRACT_OWNER, m);
             remaining -= m;
         }
     }

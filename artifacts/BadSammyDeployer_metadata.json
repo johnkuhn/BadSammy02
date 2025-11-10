@@ -283,6 +283,42 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "nftAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "mintSpecific",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tierId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "mintSpecificByTier",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "nft1",
 				"outputs": [
@@ -672,11 +708,11 @@
 			]
 		},
 		"contracts/BadSammyNFT.sol": {
-			"keccak256": "0xcf490ea9daf6ba5fb63213eb16b63e2a7427356eb0c3f22e062d77eb153c5ffe",
+			"keccak256": "0x0e2162a437d6fd7e8770526042c127b03de19b07a40b67b1a4298e7facfe664b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://03c650b72ab27dfafa4e82df4e20cb5c979fdacc3eabf6f44201ce15d8426035",
-				"dweb:/ipfs/QmQTqaj1iVDpTHwTJpwrSE7VY7oMFDFWAin37aRBNzZAJu"
+				"bzz-raw://9db60045f8716ffb94d153b0cf0e087ed676fdc6b073b86fa8d29c190024f3cd",
+				"dweb:/ipfs/QmauwzdKKZaoepL1NN4rQs7X57hbxFEbyssPMVu7GidhN9"
 			]
 		},
 		"contracts/BadSammyNFTStore.sol": {
@@ -688,11 +724,11 @@
 			]
 		},
 		"scripts/Deployer.sol": {
-			"keccak256": "0x2688a6d3f21b9000b9c5e20c88388c30c4beb3fe803ac4ea90ddce3daeb33405",
+			"keccak256": "0x402f9f8d9380e8fd0014776ac1f0adc567308c6258cc2816ed00e9da6f0a4fe6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9c23f86bc1146460b1ff66b8322be58143c8f9e8860f4701a81452e251bfd4e3",
-				"dweb:/ipfs/QmbJE5VvJYNCLJdae36YdbebqBHCcP6ATnmYcknhyj8EFp"
+				"bzz-raw://d8b4a6c41372848e774e775ceda7709777550a2e5347df82a8242cb9f807c01b",
+				"dweb:/ipfs/QmNzKD9YyQR1qMwBYGC3Fss1ULiArmfhjiQW8Bsfa3CPeT"
 			]
 		}
 	},
