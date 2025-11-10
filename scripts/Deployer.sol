@@ -52,11 +52,11 @@ contract BadSammyDeployer is Ownable {
     uint256 private constant USD5 = 500_000_000;  // $500
 
     // ---- Deployed contracts ----
-    SingleTierERC721Enumerable public nft1;
-    SingleTierERC721Enumerable public nft2;
-    SingleTierERC721Enumerable public nft3;
-    SingleTierERC721Enumerable public nft4;
-    SingleTierERC721Enumerable public nft5;
+    BadSammyNFT public nft1;
+    BadSammyNFT public nft2;
+    BadSammyNFT public nft3;
+    BadSammyNFT public nft4;
+    BadSammyNFT public nft5;
     BadSammyNFTStore public store;
 
     // ---- Events for Remix logs ----
@@ -79,11 +79,11 @@ contract BadSammyDeployer is Ownable {
     ) {
         require(address(nft1) == address(0), "Already deployed");
 
-        nft1 = new SingleTierERC721Enumerable(NAME1, SYM1, SUP1, address(this));
-        nft2 = new SingleTierERC721Enumerable(NAME2, SYM2, SUP2, address(this));
-        nft3 = new SingleTierERC721Enumerable(NAME3, SYM3, SUP3, address(this));
-        nft4 = new SingleTierERC721Enumerable(NAME4, SYM4, SUP4, address(this));
-        nft5 = new SingleTierERC721Enumerable(NAME5, SYM5, SUP5, address(this));
+        nft1 = new BadSammyNFT(NAME1, SYM1, SUP1, address(this));
+        nft2 = new BadSammyNFT(NAME2, SYM2, SUP2, address(this));
+        nft3 = new BadSammyNFT(NAME3, SYM3, SUP3, address(this));
+        nft4 = new BadSammyNFT(NAME4, SYM4, SUP4, address(this));
+        nft5 = new BadSammyNFT(NAME5, SYM5, SUP5, address(this));
 
         store = new BadSammyNFTStore(address(this), TREASURY, USDC);
 
@@ -118,7 +118,52 @@ contract BadSammyDeployer is Ownable {
         _batchMint(nft5, SUP5, batchSize);
     }
 
-    function _batchMint(SingleTierERC721Enumerable c, uint256 maxSupply, uint256 batch) internal {
+    // ---------------------------------------------------------
+    // ✅ Mint a specific quantity for a specific NFT contract
+    // ---------------------------------------------------------
+    function mintSpecific(address nftAddress, uint256 quantity)
+        external
+        onlyOwner
+    {
+        require(nftAddress != address(0), "NFT address required");
+        require(quantity > 0, "Quantity must be > 0");
+
+        BadSammyNFT nft = BadSammyNFT(nftAddress);
+
+        // Will revert automatically if it exceeds max supply
+        nft.mintTo(WALLET_MINT_TO, quantity);
+    }
+
+    // ---------------------------------------------------------
+    // ✅ Mint by Tier (1–5) without needing the NFT address
+    // ---------------------------------------------------------
+    function mintSpecificByTier(uint256 tierId, uint256 quantity)
+        external
+        onlyOwner
+    {
+        require(quantity > 0, "Quantity must be > 0");
+
+        BadSammyNFT nft;
+
+        if (tierId == 1) {
+            nft = nft1;
+        } else if (tierId == 2) {
+            nft = nft2;
+        } else if (tierId == 3) {
+            nft = nft3;
+        } else if (tierId == 4) {
+            nft = nft4;
+        } else if (tierId == 5) {
+            nft = nft5;
+        } else {
+            revert("Invalid tier");
+        }
+
+        nft.mintTo(WALLET_MINT_TO, quantity);
+    }
+
+
+    function _batchMint(BadSammyNFT c, uint256 maxSupply, uint256 batch) internal {
         uint256 remaining = maxSupply - c.minted();
         while (remaining > 0) {
             uint256 m = remaining > batch ? batch : remaining;

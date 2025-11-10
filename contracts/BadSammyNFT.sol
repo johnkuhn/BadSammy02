@@ -7,14 +7,14 @@ import "@openzeppelin/contracts/token/common/ERC2981.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
- * SingleTierERC721Enumerable (OZ v5)
+ * BadSammyNFT 
  * - Enumerable for "inventory wallet" UX + store auto-pick
  * - Start token IDs at 1
  * - Optional ERC-2981 royalties (unset by default)
  * - IPFS baseURI per contract, with one-way freeze
  * - Owner-only airdrop minting (you mint upfront to an inventory wallet)
  */
-contract SingleTierERC721Enumerable is ERC721Enumerable, Ownable, ERC2981 {
+contract BadSammyNFT is ERC721Enumerable, Ownable, ERC2981 {
     using Strings for uint256;
 
     uint256 public immutable MAX_SUPPLY;

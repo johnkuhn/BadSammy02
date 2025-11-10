@@ -287,7 +287,7 @@
 				"name": "nft1",
 				"outputs": [
 					{
-						"internalType": "contract SingleTierERC721Enumerable",
+						"internalType": "contract BadSammyNFT",
 						"name": "",
 						"type": "address"
 					}
@@ -300,7 +300,7 @@
 				"name": "nft2",
 				"outputs": [
 					{
-						"internalType": "contract SingleTierERC721Enumerable",
+						"internalType": "contract BadSammyNFT",
 						"name": "",
 						"type": "address"
 					}
@@ -313,7 +313,7 @@
 				"name": "nft3",
 				"outputs": [
 					{
-						"internalType": "contract SingleTierERC721Enumerable",
+						"internalType": "contract BadSammyNFT",
 						"name": "",
 						"type": "address"
 					}
@@ -326,7 +326,7 @@
 				"name": "nft4",
 				"outputs": [
 					{
-						"internalType": "contract SingleTierERC721Enumerable",
+						"internalType": "contract BadSammyNFT",
 						"name": "",
 						"type": "address"
 					}
@@ -339,7 +339,7 @@
 				"name": "nft5",
 				"outputs": [
 					{
-						"internalType": "contract SingleTierERC721Enumerable",
+						"internalType": "contract BadSammyNFT",
 						"name": "",
 						"type": "address"
 					}
@@ -672,11 +672,11 @@
 			]
 		},
 		"contracts/BadSammyNFT.sol": {
-			"keccak256": "0x2271e83d702393c62bac557e804138217aa63bd4d9c542f9e6164478f4f7adb5",
+			"keccak256": "0xcf490ea9daf6ba5fb63213eb16b63e2a7427356eb0c3f22e062d77eb153c5ffe",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f8423f9bf19a1a00e9f5e60ccc7e8d305d82e0858fe4a2d3f6dadcaf80218f51",
-				"dweb:/ipfs/QmRapfUP9Kyf2DDRhaDYujmhPCRwnAvKgu3uRUNy2DK6JV"
+				"bzz-raw://03c650b72ab27dfafa4e82df4e20cb5c979fdacc3eabf6f44201ce15d8426035",
+				"dweb:/ipfs/QmQTqaj1iVDpTHwTJpwrSE7VY7oMFDFWAin37aRBNzZAJu"
 			]
 		},
 		"contracts/BadSammyNFTStore.sol": {
@@ -688,11 +688,11 @@
 			]
 		},
 		"scripts/Deployer.sol": {
-			"keccak256": "0x9e4f01afac86f92425f6be9866623b5f25734355a1c5da673ab508cc09944588",
+			"keccak256": "0x2688a6d3f21b9000b9c5e20c88388c30c4beb3fe803ac4ea90ddce3daeb33405",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5a232213338a747d8b0d7bb8b81d836f4f48b0630c8410ed0c54d89364d75a78",
-				"dweb:/ipfs/QmYN8ymkaiZPHE7tW1DBWKwcnvS8dt7W9kNw91aMo2W9oV"
+				"bzz-raw://9c23f86bc1146460b1ff66b8322be58143c8f9e8860f4701a81452e251bfd4e3",
+				"dweb:/ipfs/QmbJE5VvJYNCLJdae36YdbebqBHCcP6ATnmYcknhyj8EFp"
 			]
 		}
 	},
