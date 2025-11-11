@@ -12,11 +12,11 @@ contract BadSammyDeployer is Ownable {
     address public constant USDC = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // 6 decimals
 
     // ---- BaseURIs: set these before freezing ----
-    string public constant BASEURI1 = ""; // Common
-    string public constant BASEURI2 = ""; // Rare
-    string public constant BASEURI3 = ""; // Epic
-    string public constant BASEURI4 = ""; // Legendary
-    string public constant BASEURI5 = ""; // Ultra Rare
+    string public constant BASEURI1 = "https://test1.com"; // Common
+    string public constant BASEURI2 = "https://test2.com"; // Rare
+    string public constant BASEURI3 = "https://test3.com"; // Epic
+    string public constant BASEURI4 = "https://test4.com"; // Legendary
+    string public constant BASEURI5 = "https://test5.com"; // Ultra Rare
 
     // ---- Tier constants (names, symbols, supply) ----
     string private constant NAME1 = "BadSammy Common";

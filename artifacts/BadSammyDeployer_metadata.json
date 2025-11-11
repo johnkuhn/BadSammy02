@@ -744,11 +744,11 @@
 			]
 		},
 		"scripts/Deployer.sol": {
-			"keccak256": "0x9da335242c4a228cc87ab048d7d3343b00d4fc75e076c908cc8106d9137cc34a",
+			"keccak256": "0x89fe8b146348cca38d7f18f0898722e3f08ddafc575b1891aff395c351274f9d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2a2d3eec497e9ff9fde652b0d5d652a4d9d92e25f3d1b7d01ea5a5c5b6bd3ad0",
-				"dweb:/ipfs/QmaXPMvEHLZwoPcX4a1ik6YKRjDSoZykPd26ovWVLjqxcX"
+				"bzz-raw://cc7a4083cda6c3753b3bfd48f3f9da7fdef171bf27670189d1571669659b59ad",
+				"dweb:/ipfs/QmfXXjdfPsS3GrVsuGyCKF3xGeRnNUn1NWSNekrUUoqU8i"
 			]
 		}
 	},
