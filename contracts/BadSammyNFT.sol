@@ -100,6 +100,22 @@ contract BadSammyNFT is ERC721Enumerable, Ownable, ERC2981 {
         _deleteDefaultRoyalty();
     }
 
+    //allows us to transfer tokens as the owner from the contract owner main inventory wallet for example and send those nfts to another inventory wallet.
+    function batchTransferFirstN(
+        address from,
+        address to,
+        uint256 amount
+    ) external onlyOwner {
+        uint256 balance = balanceOf(from);
+        require(amount <= balance, "Not enough tokens");
+
+        for (uint256 i = 0; i < amount; i++) {
+            uint256 tokenId = tokenOfOwnerByIndex(from, 0); // always the first owned
+            _transfer(from, to, tokenId);
+        }
+    }
+
+
     // ---------- Interfaces ----------
     function supportsInterface(bytes4 iid)
         public

@@ -7,9 +7,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract BadSammyDeployer is Ownable {
     // ---- Addresses you asked to be constants ----
-    address constant CONTRACT_OWNER_MINT_TO = 0x3Cc463fd67146A6951062B85428b5f77828D5D09;
-    address payable public constant TREASURY = payable(0xDa8291d1F21643c441d2637da5ae7F0990ab5678);
-    address public constant USDC = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // 6 decimals
+    //TODO: put our contract/founder owner back in place after remix vm testing.
+    address constant CONTRACT_OWNER_MINT_TO = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4; // 0x3Cc463fd67146A6951062B85428b5f77828D5D09;
+    
+    //TODO: put our Treasury wallet address back in after remix vm testing.
+    address payable public constant TREASURY = payable(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2); // payable(0xDa8291d1F21643c441d2637da5ae7F0990ab5678);
+    address public constant USDC = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // 6 decimals. USDC address on BASE chain.
 
     // ---- BaseURIs: set these before freezing ----
     string public constant BASEURI1 = "https://test1.com"; // Common
