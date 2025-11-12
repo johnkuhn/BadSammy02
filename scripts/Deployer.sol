@@ -40,19 +40,20 @@ contract BadSammyDeployer is Ownable {
     uint256 private constant SUP4 = 500;
     uint256 private constant SUP5 = 100;
 
-    // ---- ETH prices (wei) ----
-    uint256 private constant ETH1 = 290_000_000_000_000;   // 0.00029
-    uint256 private constant ETH2 = 580_000_000_000_000;   // 0.00058
-    uint256 private constant ETH3 = 1_450_000_000_000_000; // 0.00145
-    uint256 private constant ETH4 = 2_900_000_000_000_000; // 0.0029
-    uint256 private constant ETH5 = 14_500_000_000_000_000; // 0.0145
+   // ---- ETH prices (wei) ----
+    uint256 private constant ETH1 = 29_000_000_000_000_000;    // 0.029 ETH ($100)
+    uint256 private constant ETH2 = 72_500_000_000_000_000;    // 0.0725 ETH ($250)
+    uint256 private constant ETH3 = 145_000_000_000_000_000;   // 0.145 ETH ($500)
+    uint256 private constant ETH4 = 290_000_000_000_000_000;   // 0.29 ETH ($1,000)
+    uint256 private constant ETH5 = 725_000_000_000_000_000;   // 0.725 ETH ($2,500)
+
 
     // ---- USDC prices (6 decimals) ----
-    uint256 private constant USD1 = 10_000_000;   // $10
-    uint256 private constant USD2 = 20_000_000;   // $20
-    uint256 private constant USD3 = 50_000_000;   // $50
-    uint256 private constant USD4 = 100_000_000;  // $100
-    uint256 private constant USD5 = 500_000_000;  // $500
+    uint256 private constant USD1 = 100_000_000;    // $100
+    uint256 private constant USD2 = 250_000_000;    // $250
+    uint256 private constant USD3 = 500_000_000;    // $500
+    uint256 private constant USD4 = 1_000_000_000;  // $1,000
+    uint256 private constant USD5 = 2_500_000_000;  // $2,500
 
     // ---- Deployed contracts ----
     BadSammyNFT public nft1;
