@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
@@ -124,19 +124,6 @@
 						"type": "uint256"
 					}
 				],
-				"name": "buyWithETH",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "tierId",
-						"type": "uint256"
-					}
-				],
 				"name": "buyWithUSDC",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -248,11 +235,6 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "priceEthWei",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
 						"name": "priceUsdcUnits",
 						"type": "uint256"
 					},
@@ -312,11 +294,6 @@
 						"internalType": "address",
 						"name": "nft",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "priceEth",
-						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
@@ -423,34 +400,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "tierId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "startTokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "endTokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					}
-				],
-				"name": "withdrawRange",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"stateMutability": "payable",
 				"type": "receive"
 			}
@@ -490,7 +439,7 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {},
-			"notice": "BadSammyNFTStore (OZ v5) To be used by Base Mini App. OpenSea will not use this but will go directly to Inventory Wallet. - Primary sales for multiple ERC721Enumerable collections (tiers) - Accepts ETH and/or USDC per tier - Store holds inventory so it can transfer immediately - Auto-picks the next token owned by the store",
+			"notice": "BadSammyNFTStore (USDC-ONLY MODE) ETH purchasing & price conversion have been commented out. This is a simplified version for launch using ONLY USDC.",
 			"version": 1
 		}
 	},
@@ -498,7 +447,7 @@
 		"compilationTarget": {
 			"contracts/BadSammyNFTStore.sol": "BadSammyNFTStore"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -615,11 +564,11 @@
 			]
 		},
 		"contracts/BadSammyNFTStore.sol": {
-			"keccak256": "0x80b46564cd858f78a4a5cd322e2fcd68128fd697c34b7c5a4c01c3c464f261ae",
+			"keccak256": "0xac8afe672eaf1dc1354e6f8a9d58451d781580d55d50751909b0c941113a9a03",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa3cfc93595949a5e7cc80437eb3267b365b1c9ac06ee1cc12d8ecf074055473",
-				"dweb:/ipfs/QmTdmEdXbezvBAx3tp8MXZbG4JEzpHxeXfVa8wYdoHH9QH"
+				"bzz-raw://c7f1ae2ac81061f5117ed61eb41bfb99178bc768b9ceac2ff7e6d6e7e9677cd7",
+				"dweb:/ipfs/QmdS1orB8Ypbp1vAGUjUytypzUjFcWRnLQbW8TyKkhPt7y"
 			]
 		}
 	},

@@ -10,13 +10,13 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
+// ETH_DISABLED: Remove Chainlink import since we are not using ETH pricing
+// import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+
 /**
- * BadSammyNFTStore (OZ v5)
- * To be used by Base Mini App. OpenSea will not use this but will go directly to Inventory Wallet.
- * - Primary sales for multiple ERC721Enumerable collections (tiers)
- * - Accepts ETH and/or USDC per tier
- * - Store holds inventory so it can transfer immediately
- * - Auto-picks the next token owned by the store
+ * BadSammyNFTStore (USDC-ONLY MODE)
+ * ETH purchasing & price conversion have been commented out.
+ * This is a simplified version for launch using ONLY USDC.
  */
 contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
 
@@ -24,16 +24,20 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
 
     struct Tier {
         address nft;          // ERC721Enumerable collection
-        uint256 priceEth;     // 0 if disabled
-        uint256 priceUsdc;    // 0 if disabled
+        uint256 priceUsdc;    // USDC price (6 decimals)
         bool enabled;
     }
 
     // tierId => configuration
     mapping(uint256 => Tier) public tiers;
 
-    address payable public treasury; // receives ETH
-    IERC20 public immutable USDC;    // stablecoin contract
+    address payable public treasury;  // Receives USDC payments
+    IERC20 public immutable USDC;     // Payment token (USDC)
+
+    // ================================
+    // ETH_DISABLED. ETH pricing temporarily disabled
+    // ================================
+    // AggregatorV3Interface public ethUsdPriceFeed;
 
     error InvalidTier();
     error TierDisabled();
@@ -41,15 +45,28 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
     error PaymentIncorrect();
     error ZeroAddress();
 
-    constructor(address initialOwner, address payable _treasury, address usdc)
-        Ownable(initialOwner)
+    constructor(
+        address initialOwner,
+        address payable _treasury,
+        address usdc
+        // ETH_DISABLED: remove price feed from constructor
+        // address _ethUsdPriceFeed
+    ) Ownable(initialOwner) 
     {
-        if (_treasury == address(0) || usdc == address(0)) revert ZeroAddress();
+        if (_treasury == address(0) || usdc == address(0)) {
+            revert ZeroAddress();
+        }
+
         treasury = _treasury;
         USDC = IERC20(usdc);
+
+        // ETH_DISABLED: commenting out oracle feed
+        // ethUsdPriceFeed = AggregatorV3Interface(_ethUsdPriceFeed);
     }
 
-    // ------- Admin -------
+    // ================================
+    // Tier Management
+    // ================================
     function setTreasury(address payable _treasury) external onlyOwner {
         if (_treasury == address(0)) revert ZeroAddress();
         treasury = _treasury;
@@ -58,14 +75,16 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
     function setTier(
         uint256 tierId,
         address nftAddress,
-        uint256 priceEthWei,
-        uint256 priceUsdcUnits, // e.g., 6 decimals on Base USDC
+        uint256 priceUsdcUnits,
         bool enabled
     ) external onlyOwner {
-        tiers[tierId] = Tier(nftAddress, priceEthWei, priceUsdcUnits, enabled);
+        tiers[tierId] = Tier({
+            nft: nftAddress,
+            priceUsdc: priceUsdcUnits,
+            enabled: enabled
+        });
     }
 
-    // ------- Internals -------
     function _nextToken(address nft) internal view returns (uint256) {
         IERC721Enumerable en = IERC721Enumerable(nft);
         uint256 bal = en.balanceOf(address(this));
@@ -73,24 +92,22 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
         return en.tokenOfOwnerByIndex(address(this), 0);
     }
 
-    // ------- Buys -------
+    // ================================
+    // ETH_DISABLED. ETH purchasing DISABLED
+    // ================================
+    /*
     function buyWithETH(uint256 tierId) external payable nonReentrant {
-        Tier memory t = tiers[tierId];
-        if (t.nft == address(0)) revert InvalidTier();
-        if (!t.enabled || t.priceEth == 0) revert TierDisabled();
-        if (msg.value != t.priceEth) revert PaymentIncorrect();
-
-        uint256 tokenId = _nextToken(t.nft);
-
-        // Pay treasury
-        (bool ok, ) = treasury.call{value: msg.value}("");
-        require(ok, "ETH transfer failed");
-
-        // Deliver NFT
-        IERC721(t.nft).safeTransferFrom(address(this), msg.sender, tokenId);
+        revert("ETH purchasing temporarily disabled");
     }
 
-    // If buyer already did USDC.approve(store, price)
+    function getEthPriceForTier(uint256 tierId) external view returns (uint256) {
+        revert("ETH price lookup disabled");
+    }
+    */
+
+    // ================================
+    // USDC Purchasing
+    // ================================
     function buyWithUSDC(uint256 tierId) public nonReentrant {
         Tier memory t = tiers[tierId];
         if (t.nft == address(0)) revert InvalidTier();
@@ -98,41 +115,40 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
 
         uint256 tokenId = _nextToken(t.nft);
 
-        // Pull USDC from buyer
         USDC.safeTransferFrom(msg.sender, address(this), t.priceUsdc);
-        // Forward to treasury
         USDC.safeTransfer(treasury, t.priceUsdc);
 
-        // Deliver NFT
         IERC721(t.nft).safeTransferFrom(address(this), msg.sender, tokenId);
     }
 
-    // Optional permit-style buy to skip separate approve (if USDC supports EIP-2612; many do not)
     function buyWithUSDCPermit(
         uint256 tierId,
         uint256 value,
         uint256 deadline,
-        uint8 v, bytes32 r, bytes32 s
+        uint8 v,
+        bytes32 r,
+        bytes32 s
     ) external nonReentrant {
         Tier memory t = tiers[tierId];
         if (t.nft == address(0)) revert InvalidTier();
         if (!t.enabled || t.priceUsdc == 0) revert TierDisabled();
         require(value == t.priceUsdc, "permit value mismatch");
 
-        // Permit (if token supports it)
-        IERC20Permit(address(USDC)).permit(msg.sender, address(this), value, deadline, v, r, s);
+        IERC20Permit(address(USDC)).permit(
+            msg.sender, address(this), value, deadline, v, r, s
+        );
 
-        // Regular buy
         buyWithUSDC(tierId);
     }
 
-    // Safety: recover accidentally sent ERC20
+    // ================================
+    // Admin – Withdrawals & Rescue
+    // ================================
     function sweepERC20(address token, address to) external onlyOwner {
         uint256 bal = IERC20(token).balanceOf(address(this));
         IERC20(token).transfer(to, bal);
     }
 
-    // Optionally withdraw stranded NFTs (admin)
     function withdrawNFT(uint256 tierId, uint256 tokenId, address to) external onlyOwner {
         Tier memory t = tiers[tierId];
         if (t.nft == address(0)) revert InvalidTier();
@@ -140,68 +156,39 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
         IERC721(t.nft).safeTransferFrom(address(this), to, tokenId);
     }
 
-    //Withdraw x amount of tokens per tier. Withdraw the first N NFTs the store owns
     function withdrawN(uint256 tierId, uint256 quantity, address to) external onlyOwner {
         Tier memory t = tiers[tierId];
         if (t.nft == address(0)) revert InvalidTier();
 
         IERC721Enumerable nft = IERC721Enumerable(t.nft);
         uint256 bal = nft.balanceOf(address(this));
-
-        if (quantity > bal) {
-            quantity = bal; // cap to available inventory
-        }
+        if (quantity > bal) quantity = bal;
 
         for (uint256 i = 0; i < quantity; i++) {
-            // Always pull the first token the store owns
             uint256 tokenId = nft.tokenOfOwnerByIndex(address(this), 0);
             IERC721(t.nft).safeTransferFrom(address(this), to, tokenId);
         }
     }
 
-    //Withdraw everything in one tier. Clears the store’s inventory for a given NFT collection.
     function withdrawAll(uint256 tierId, address to) external onlyOwner {
         Tier memory t = tiers[tierId];
         if (t.nft == address(0)) revert InvalidTier();
 
         IERC721Enumerable nft = IERC721Enumerable(t.nft);
         uint256 bal = nft.balanceOf(address(this));
-
         for (uint256 i = 0; i < bal; i++) {
             uint256 tokenId = nft.tokenOfOwnerByIndex(address(this), 0);
             IERC721(t.nft).safeTransferFrom(address(this), to, tokenId);
         }
     }
 
-    //if you want selective range withdrawals. Possibly withdrawing specific blocks.
-    function withdrawRange(
-        uint256 tierId,
-        uint256 startTokenId,
-        uint256 endTokenId,
-        address to) external onlyOwner {
-        Tier memory t = tiers[tierId];
-        if (t.nft == address(0)) revert InvalidTier();
-
-        IERC721 nft = IERC721(t.nft);
-
-        for (uint256 tokenId = startTokenId; tokenId <= endTokenId; tokenId++) {
-            // Only withdraw if this contract currently owns it
-            if (nft.ownerOf(tokenId) == address(this)) {
-                nft.safeTransferFrom(address(this), to, tokenId);
-            }
-        }
-    }
-
-    // Safety: receive NFTs. so our store contract can be sent the NFTs that it can then sell in Base Mini App.
-    function onERC721Received(
-        address,
-        address,
-        uint256,
-        bytes calldata
-    ) external pure override returns (bytes4) {
+    // Safety: receive NFTs
+    function onERC721Received(address, address, uint256, bytes calldata) 
+        external pure override returns (bytes4) 
+    {
         return IERC721Receiver.onERC721Received.selector;
     }
 
-    // Safety: receive ETH
+    // Safety: receive ETH (unused now)
     receive() external payable {}
 }
