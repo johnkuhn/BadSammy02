@@ -108,6 +108,7 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
     // ================================
     // USDC Purchasing
     // ================================
+    /*
     function buyWithUSDC(uint256 tierId) public nonReentrant {
         Tier memory t = tiers[tierId];
         if (t.nft == address(0)) revert InvalidTier();
@@ -120,7 +121,24 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
 
         IERC721(t.nft).safeTransferFrom(address(this), msg.sender, tokenId);
     }
+    */
 
+    function buyWithUSDC(uint256 tierId, uint256 quantity) public nonReentrant {
+        Tier memory t = tiers[tierId];
+        if (t.nft == address(0)) revert InvalidTier();
+        if (!t.enabled || t.priceUsdc == 0) revert TierDisabled();
+
+        uint256 totalPrice = t.priceUsdc * quantity;
+        require(USDC.transferFrom(msg.sender, treasury, totalPrice), "USDC transfer failed");
+
+        for (uint256 i = 0; i < quantity; i++) {
+            uint256 tokenId = _nextToken(t.nft);
+            IERC721(t.nft).safeTransferFrom(address(this), msg.sender, tokenId);
+        }
+    }
+
+
+    /*
     function buyWithUSDCPermit(
         uint256 tierId,
         uint256 value,
@@ -139,7 +157,32 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
         );
 
         buyWithUSDC(tierId);
+    }*/
+
+    function buyWithUSDCPermit(
+        uint256 tierId,
+        uint256 quantity,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external nonReentrant {
+        Tier memory t = tiers[tierId];
+        if (t.nft == address(0)) revert InvalidTier();
+        if (!t.enabled || t.priceUsdc == 0) revert TierDisabled();
+        if (quantity == 0) revert PaymentIncorrect();
+
+        uint256 requiredTotal = t.priceUsdc * quantity;
+        require(value == requiredTotal, "permit value mismatch");
+
+        IERC20Permit(address(USDC)).permit(
+            msg.sender, address(this), value, deadline, v, r, s
+        );
+
+        buyWithUSDC(tierId, quantity);
     }
+
 
     // ================================
     // Admin – Withdrawals & Rescue

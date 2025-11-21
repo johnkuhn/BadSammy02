@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.20+commit.a1b79de6"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
@@ -59,17 +59,6 @@
 				"type": "error"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					}
-				],
-				"name": "SafeERC20FailedOperation",
-				"type": "error"
-			},
-			{
 				"inputs": [],
 				"name": "SoldOut",
 				"type": "error"
@@ -122,6 +111,11 @@
 						"internalType": "uint256",
 						"name": "tierId",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
 					}
 				],
 				"name": "buyWithUSDC",
@@ -134,6 +128,11 @@
 					{
 						"internalType": "uint256",
 						"name": "tierId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
 						"type": "uint256"
 					},
 					{
@@ -415,11 +414,6 @@
 					{
 						"details": "The caller account is not authorized to perform an operation."
 					}
-				],
-				"SafeERC20FailedOperation(address)": [
-					{
-						"details": "An operation with an ERC-20 token failed."
-					}
 				]
 			},
 			"kind": "dev",
@@ -447,7 +441,7 @@
 		"compilationTarget": {
 			"contracts/BadSammyNFTStore.sol": "BadSammyNFTStore"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -564,11 +558,11 @@
 			]
 		},
 		"contracts/BadSammyNFTStore.sol": {
-			"keccak256": "0xac8afe672eaf1dc1354e6f8a9d58451d781580d55d50751909b0c941113a9a03",
+			"keccak256": "0x1d5ea7ba71ee1587f3518304b2d7024ef64b1f678ff4110ffd8271982e033430",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c7f1ae2ac81061f5117ed61eb41bfb99178bc768b9ceac2ff7e6d6e7e9677cd7",
-				"dweb:/ipfs/QmdS1orB8Ypbp1vAGUjUytypzUjFcWRnLQbW8TyKkhPt7y"
+				"bzz-raw://c1c30c67abaf62124c63ebc5d34fb4c32756e0bd5ccd09809afa90cda09749d2",
+				"dweb:/ipfs/Qmf4u549a9insC1BhMtXvtao3cCaC3LBe41JkDiC9m8vNC"
 			]
 		}
 	},
