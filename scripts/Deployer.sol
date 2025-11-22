@@ -13,7 +13,7 @@ contract BadSammyDeployer is Ownable {
     // TODO: put our Treasury wallet address back in after remix vm testing.
     address payable public constant TREASURY = payable(0x643A87055213c3ce6d0BE9B1762A732e9E059536); // payable(0x6150518d33Cfa0e9B9afFd13795a1C2540c972d7);
 
-    //TODO: make sure below is valid USDC address on Base.
+    // TODO: make sure below is valid USDC address on Base.
     address public constant USDC = 0x36952592150f3AED54c1EC3C85213e1eD5CC1559; // 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // USDC on Base chain
 
     // ❌ ETH/USD feed no longer needed – commenting out
@@ -62,18 +62,17 @@ contract BadSammyDeployer is Ownable {
     BadSammyNFTStore public store;
 
     // ---- Events ----
-    event Deployed(address nft1, address nft2, address nft3, address nft4, address nft5, address store);
-    event BaseURIFrozen(address indexed nft);
+    event NFTsDeployed(address nft1, address nft2, address nft3, address nft4, address nft5);
+    event StoreDeployed(address store);
     event AllBaseURIsFrozen();
     event TiersConfigured();
     event OwnershipTransferredAll(address newOwner);
 
     constructor() Ownable(msg.sender) {}
 
-    function deployAll() external onlyOwner returns (
-        address _nft1, address _nft2, address _nft3, address _nft4, address _nft5, address _store
-    ) {
-        require(address(nft1) == address(0), "Already deployed");
+    // STEP 1: Deploy NFTs
+    function deployNFTs() external onlyOwner returns (address, address, address, address, address) {
+        require(address(nft1) == address(0), "NFTs already deployed");
 
         nft1 = new BadSammyNFT(NAME1, SYM1, SUP1, address(this));
         nft2 = new BadSammyNFT(NAME2, SYM2, SUP2, address(this));
@@ -81,12 +80,21 @@ contract BadSammyDeployer is Ownable {
         nft4 = new BadSammyNFT(NAME4, SYM4, SUP4, address(this));
         nft5 = new BadSammyNFT(NAME5, SYM5, SUP5, address(this));
 
+        emit NFTsDeployed(address(nft1), address(nft2), address(nft3), address(nft4), address(nft5));
+        return (address(nft1), address(nft2), address(nft3), address(nft4), address(nft5));
+    }
+
+    // STEP 2: Deploy Store
+    function deployStore() external onlyOwner returns (address) {
+        require(address(nft1) != address(0), "Deploy NFTs first");
+        require(address(store) == address(0), "Store already deployed");
+
         // 🚀 ETH payment disabled — calling constructor without ETH feed
         // store = new BadSammyNFTStore(address(this), TREASURY, USDC, ETH_USD_FEED);
         store = new BadSammyNFTStore(address(this), TREASURY, USDC); // <--- FINAL
 
-        emit Deployed(address(nft1), address(nft2), address(nft3), address(nft4), address(nft5), address(store));
-        return (address(nft1), address(nft2), address(nft3), address(nft4), address(nft5), address(store));
+        emit StoreDeployed(address(store));
+        return address(store);
     }
 
     function setAllBaseURI() external onlyOwner {
@@ -97,7 +105,8 @@ contract BadSammyDeployer is Ownable {
         nft5.setBaseURI(BASEURI5);
     }
 
-/*
+    /* 
+    // TODO: Re-enable when ready to mass mint after testing.
     function mintAllFull() external onlyOwner {
         nft1.mintTo(CONTRACT_OWNER_MINT_TO, SUP1);
         nft2.mintTo(CONTRACT_OWNER_MINT_TO, SUP2);
@@ -105,24 +114,14 @@ contract BadSammyDeployer is Ownable {
         nft4.mintTo(CONTRACT_OWNER_MINT_TO, SUP4);
         nft5.mintTo(CONTRACT_OWNER_MINT_TO, SUP5);
     }
-*/
+    */
 
     function mintSpecificAmountByTier(uint256 tierId, uint256 quantity) external onlyOwner {
-        
-        if(tierId == 1)
-            nft1.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
-
-        if(tierId == 2)
-            nft2.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
-
-        if(tierId == 3)
-            nft3.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
-
-        if(tierId == 4)
-            nft4.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
-
-        if(tierId == 5) 
-            nft5.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+        if (tierId == 1) nft1.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+        if (tierId == 2) nft2.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+        if (tierId == 3) nft3.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+        if (tierId == 4) nft4.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+        if (tierId == 5) nft5.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
     }
 
     function configureStoreTiers() external onlyOwner {
