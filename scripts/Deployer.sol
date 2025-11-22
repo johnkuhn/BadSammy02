@@ -8,18 +8,19 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract BadSammyDeployer is Ownable {
     // ---- Addresses ----
     // TODO: put our contract/founder owner back in place after remix vm testing.
-    address constant CONTRACT_OWNER_MINT_TO = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+    address constant CONTRACT_OWNER_MINT_TO = 0x832F90cf5374DC89D7f8d2d2ECb94337f54Dd537; // 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
 
     // TODO: put our Treasury wallet address back in after remix vm testing.
-    address payable public constant TREASURY = payable(0x6150518d33Cfa0e9B9afFd13795a1C2540c972d7);
+    address payable public constant TREASURY = payable(0x643A87055213c3ce6d0BE9B1762A732e9E059536); // payable(0x6150518d33Cfa0e9B9afFd13795a1C2540c972d7);
 
-    address public constant USDC = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // USDC on Base chain
+    //TODO: make sure below is valid USDC address on Base.
+    address public constant USDC = 0x36952592150f3AED54c1EC3C85213e1eD5CC1559; // 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // USDC on Base chain
 
     // ❌ ETH/USD feed no longer needed – commenting out
     // address public constant ETH_USD_FEED = 0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70; // Chainlink ETH/USD on Base
 
     // ---- BaseURIs ----
-    string public constant BASEURI1 = "ipfs://Qmcwmxi55z1egLemqrvePYUdHwMW4P8UNttp946ftsEjWd/";  
+    string public constant BASEURI1 = "ipfs://QmVfqoFUZ1wKd6F2AUQ24hffVUgJGXqcaX7qs9ZYmvSsfP/";  
     string public constant BASEURI2 = "ipfs://QmewsSBD8QiZsr1o3FC8WjR55Ypv7kmE8trdmygNqqS4pY/"; 
     string public constant BASEURI3 = "ipfs://QmPXK2EqWmfDgs6UKHn57SYdeN2nhiKcPnsV6yUuoXcVgR/"; 
     string public constant BASEURI4 = "ipfs://Qme2PPT9rwbf28WvufUVzsPYfVfgFcDgCdeyerN6SDssUy/"; 
@@ -96,12 +97,32 @@ contract BadSammyDeployer is Ownable {
         nft5.setBaseURI(BASEURI5);
     }
 
+/*
     function mintAllFull() external onlyOwner {
         nft1.mintTo(CONTRACT_OWNER_MINT_TO, SUP1);
         nft2.mintTo(CONTRACT_OWNER_MINT_TO, SUP2);
         nft3.mintTo(CONTRACT_OWNER_MINT_TO, SUP3);
         nft4.mintTo(CONTRACT_OWNER_MINT_TO, SUP4);
         nft5.mintTo(CONTRACT_OWNER_MINT_TO, SUP5);
+    }
+*/
+
+    function mintSpecificAmountByTier(uint256 tierId, uint256 quantity) external onlyOwner {
+        
+        if(tierId == 1)
+            nft1.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+
+        if(tierId == 2)
+            nft2.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+
+        if(tierId == 3)
+            nft3.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+
+        if(tierId == 4)
+            nft4.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
+
+        if(tierId == 5) 
+            nft5.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
     }
 
     function configureStoreTiers() external onlyOwner {

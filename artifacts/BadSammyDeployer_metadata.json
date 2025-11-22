@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.20+commit.a1b79de6"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
@@ -276,8 +276,19 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "mintAllFull",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tierId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "mintSpecificAmountByTier",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -445,7 +456,7 @@
 		"compilationTarget": {
 			"scripts/Deployer.sol": "BadSammyDeployer"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -674,19 +685,19 @@
 			]
 		},
 		"contracts/BadSammyNFTStore.sol": {
-			"keccak256": "0xac8afe672eaf1dc1354e6f8a9d58451d781580d55d50751909b0c941113a9a03",
+			"keccak256": "0x1d5ea7ba71ee1587f3518304b2d7024ef64b1f678ff4110ffd8271982e033430",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c7f1ae2ac81061f5117ed61eb41bfb99178bc768b9ceac2ff7e6d6e7e9677cd7",
-				"dweb:/ipfs/QmdS1orB8Ypbp1vAGUjUytypzUjFcWRnLQbW8TyKkhPt7y"
+				"bzz-raw://c1c30c67abaf62124c63ebc5d34fb4c32756e0bd5ccd09809afa90cda09749d2",
+				"dweb:/ipfs/Qmf4u549a9insC1BhMtXvtao3cCaC3LBe41JkDiC9m8vNC"
 			]
 		},
 		"scripts/Deployer.sol": {
-			"keccak256": "0x99e2961b329c77f2fe5dde2a9e77b9c75c850c8fd07083423aa9d4b520524574",
+			"keccak256": "0xb51f5bdd038011bcf5fb4394afdb41183954d10084ef8dc71c211fed71d8f341",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3f3ed2a56612355f7382730ab266235d7a07266041a6e9fcd283356c54f72d14",
-				"dweb:/ipfs/QmTRgwudaxBDHBMY2jT7ywxCeoWiyfntUDdhYX2Jk5HcjN"
+				"bzz-raw://2ba240722ac7df228c6f06a03992eeacb82e373fb5f2c6184c91241ed4d1dcbf",
+				"dweb:/ipfs/QmcUmUUUtbkHJ4pNXjsfQyJbrkjPU2GDYb33EZSYxs6zCx"
 			]
 		}
 	},
