@@ -19,11 +19,11 @@ contract DeployStore is Ownable {
     
     //TODO: set these to the various NFT addresses after they've been deployed
     // ---- Deployed contracts ----
-    address constant nft1 = 0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70;
-    address constant nft2 = 0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70;
-    address constant nft3 = 0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70;
-    address constant nft4 = 0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70;
-    address constant nft5 = 0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70;
+    address constant nft1 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
+    address constant nft2 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
+    address constant nft3 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
+    address constant nft4 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
+    address constant nft5 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
 
     // ---- USDC Prices (ETH disabled) ----
     uint256 private constant USD1= 100_000_000;    // $100

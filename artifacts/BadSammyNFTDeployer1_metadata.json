@@ -111,26 +111,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "freezeBaseURI",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "quantity",
-						"type": "uint256"
-					}
-				],
-				"name": "mintSpecificAmount",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "owner",
 				"outputs": [
 					{
@@ -151,13 +131,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "setBaseURI",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "thisNFT",
 				"outputs": [
 					{
@@ -167,13 +140,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "transferContractToOwner",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -400,11 +366,11 @@
 			]
 		},
 		"scripts/DeployNFT1.sol": {
-			"keccak256": "0x1a817d89c670aef3e97ce0131195fd4b7459a3ab0efdc3a811e893a5920c5239",
+			"keccak256": "0x1e1d2346eb6e8a7d70ece881c27ce2d3b76cbe6679ba322028bbaeb7be15832e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8135886a0bf4da6a7d1c9e6b3bd458b2b7193c0166e6faaa0971a59705ee4d78",
-				"dweb:/ipfs/QmRU7bqV4Q4fZnGUJkDvvL9AJuUiZwxV8c45CNxswNL7SD"
+				"bzz-raw://be4cbdddc63c16351e2e77ae7f8f9aa5e3e9f36fc04b0880acf495090a0d0872",
+				"dweb:/ipfs/QmXQMap5nBVkB5X6THcNTtfHEzuAUrrdLFpMmX41kpC3fm"
 			]
 		}
 	},

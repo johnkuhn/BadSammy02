@@ -345,11 +345,11 @@
 			]
 		},
 		"scripts/DeployStore.sol": {
-			"keccak256": "0xdaa6d49818f75f70fd83384c2f0535bbec8a21e17d9b112581ca21fd778ec83c",
+			"keccak256": "0xed51b18149ef9df87ce7e51670acb9722284eabaad5b9846b7affe4f77857898",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://09745cb4bbb4afef7865ab27bf339ad2860fced53795ebcda9d2fb3a3f02c042",
-				"dweb:/ipfs/QmYwsp9Nry96LFjmd4AaspyPqaef5WmnLC2Ctcz2T4ihiV"
+				"bzz-raw://ab4aeae1e8bd7be24b74f84cee91b1b4219727868de4b87f15d533fe106fe9ab",
+				"dweb:/ipfs/Qmd926E5bRNToGkWJoseSEytcKeatJV5uhHiKM652rbxPA"
 			]
 		}
 	},

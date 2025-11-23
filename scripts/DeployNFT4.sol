@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "../contracts/BadSammyNFT.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract BadSammyNFTDeployer4 is Ownable {
+contract DeployNFT4 is Ownable {
     // ---- Addresses ----
     // TODO: put our contract/founder owner back in place after remix vm testing.
     address constant CONTRACT_OWNER_MINT_TO = 0x832F90cf5374DC89D7f8d2d2ECb94337f54Dd537; // 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
@@ -23,8 +23,6 @@ contract BadSammyNFTDeployer4 is Ownable {
     // ---- Deployed contracts ----
     BadSammyNFT public thisNFT;
 
-    //BadSammyNFTStore public store;
-
     // ---- Events ----
     event NFTDeployed(address nft1);
     event BaseURIFrozen();
@@ -38,33 +36,13 @@ contract BadSammyNFTDeployer4 is Ownable {
 
         thisNFT = new BadSammyNFT(NAME, SYMBOL, TOTAL_SUPPLY, address(this));
 
+        thisNFT.setBaseURI(BASEURI);
+
+        thisNFT.transferOwnership(CONTRACT_OWNER_MINT_TO);
+
         emit NFTDeployed(address(thisNFT));
         return (address(thisNFT));
     }
 
 
-    function setBaseURI() external onlyOwner {
-        thisNFT.setBaseURI(BASEURI);
-    }
-
-
-    function mintSpecificAmount(uint256 quantity) external onlyOwner {
-        thisNFT.mintTo(CONTRACT_OWNER_MINT_TO, quantity);
-
-    }
-
-
-    function freezeBaseURI() external onlyOwner {
-        if (!thisNFT.uriFrozen()) thisNFT.freezeBaseURI();
-
-        emit BaseURIFrozen();
-    }
-
-    function transferContractToOwner() external onlyOwner {
-        require(CONTRACT_OWNER_MINT_TO != address(0), "Invalid owner");
-
-        thisNFT.transferOwnership(CONTRACT_OWNER_MINT_TO);
-
-        emit OwnershipTransferred(CONTRACT_OWNER_MINT_TO);
-    }
 }
