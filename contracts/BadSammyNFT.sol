@@ -115,6 +115,11 @@ contract BadSammyNFT is ERC721Enumerable, Ownable, ERC2981 {
         }
     }
 
+    //prevent renouncing ownership
+    function renounceOwnership() public view override onlyOwner {
+        revert("Renouncing ownership is disabled");
+    }
+
 
     // ---------- Interfaces ----------
     function supportsInterface(bytes4 iid)

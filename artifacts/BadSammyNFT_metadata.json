@@ -586,7 +586,7 @@
 				"inputs": [],
 				"name": "renounceOwnership",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -1253,11 +1253,11 @@
 			]
 		},
 		"contracts/BadSammyNFT.sol": {
-			"keccak256": "0x531997173b1cc4f99f5bb40545aa7d75c9d0d0a28401b4c17257f269c357e56f",
+			"keccak256": "0xc01d370882085d983cc30158673626d53459c38b87c6c7400c047dd3b57689a3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2ed2f7402fc5f26178adf7887b7496c61e5b76af9bcbad21585497cf7500ae38",
-				"dweb:/ipfs/QmVqcysgRfwiPFYienqs7A47zSourWmPmr1Vj9cgGPk5sz"
+				"bzz-raw://1c35fb64d62456b0f6cf8ac6beb1a4ffca5d10e282b66841157f5f56fa402752",
+				"dweb:/ipfs/QmShnx3zpkAqNQxEpcJbiSohFryBbV4SFTM6ZEot1emV4j"
 			]
 		}
 	},

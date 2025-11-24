@@ -93,6 +93,25 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "oldAddress",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newAddress",
+						"type": "address"
+					}
+				],
+				"name": "UsdcTokenUpdated",
+				"type": "event"
+			},
+			{
 				"inputs": [],
 				"name": "USDC",
 				"outputs": [
@@ -217,7 +236,7 @@
 				"inputs": [],
 				"name": "renounceOwnership",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -257,6 +276,19 @@
 					}
 				],
 				"name": "setTreasury",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newUSDC",
+						"type": "address"
+					}
+				],
+				"name": "setUSDC",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -558,11 +590,11 @@
 			]
 		},
 		"contracts/BadSammyNFTStore.sol": {
-			"keccak256": "0x1d5ea7ba71ee1587f3518304b2d7024ef64b1f678ff4110ffd8271982e033430",
+			"keccak256": "0xeefee087920c57ff0424fb17087888184f8db8fd26a27546ef73af1ee02845a2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c1c30c67abaf62124c63ebc5d34fb4c32756e0bd5ccd09809afa90cda09749d2",
-				"dweb:/ipfs/Qmf4u549a9insC1BhMtXvtao3cCaC3LBe41JkDiC9m8vNC"
+				"bzz-raw://1b48ac7734f210262ef886518bce9ade7d904f6a4e20d9b6125034ba9f885efd",
+				"dweb:/ipfs/QmQJ5wy5T7w1BYKoPnP6rwwiGKSZNBpti3US2i9xAEY4Qq"
 			]
 		}
 	},

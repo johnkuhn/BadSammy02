@@ -32,7 +32,9 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
     mapping(uint256 => Tier) public tiers;
 
     address payable public treasury;  // Receives USDC payments
-    IERC20 public immutable USDC;     // Payment token (USDC)
+    IERC20 public USDC;     // Payment token (USDC)
+
+    event UsdcTokenUpdated(address indexed oldAddress, address indexed newAddress);
 
     // ================================
     // ETH_DISABLED. ETH pricing temporarily disabled
@@ -122,6 +124,19 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
         IERC721(t.nft).safeTransferFrom(address(this), msg.sender, tokenId);
     }
     */
+
+    //allow for changing USDC address outside of constructor
+    function setUSDC(
+        address _newUSDC
+    ) external onlyOwner {
+        if (_newUSDC == address(0)) {
+            revert ZeroAddress();
+        }
+
+        emit UsdcTokenUpdated(address(USDC), _newUSDC);
+
+        USDC = IERC20(_newUSDC);
+    }
 
     function buyWithUSDC(uint256 tierId, uint256 quantity) public nonReentrant {
         Tier memory t = tiers[tierId];
@@ -223,6 +238,11 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
             uint256 tokenId = nft.tokenOfOwnerByIndex(address(this), 0);
             IERC721(t.nft).safeTransferFrom(address(this), to, tokenId);
         }
+    }
+
+    //prevent renouncing ownership
+    function renounceOwnership() public view override onlyOwner {
+        revert("Renouncing ownership is disabled");
     }
 
     // Safety: receive NFTs

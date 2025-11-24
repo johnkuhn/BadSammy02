@@ -67,6 +67,22 @@ contract DeployStore is Ownable {
         emit TiersConfigured();
     }
 
+    function configureSpecificStoreTiers(uint256 tierId) external onlyOwner {
+        // ETH pricing removed — USDC only
+        if(tierId == 1)
+            store.setTier(1, address(nft1), USD1, true);
+        else if(tierId == 2)
+            store.setTier(2, address(nft2), USD2, true);
+        else if(tierId == 3)
+            store.setTier(3, address(nft3), USD3, true);
+        else if(tierId == 4)   
+            store.setTier(4, address(nft4), USD4, true);
+        else if(tierId == 5)
+            store.setTier(5, address(nft5), USD5, true);
+            
+        emit TiersConfigured();
+    }
+
     //Step 3: Transfer ownership
     function transferContractToOwner() external onlyOwner {
         require(CONTRACT_OWNER_MINT_TO != address(0), "Invalid owner");
