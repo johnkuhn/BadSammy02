@@ -11,7 +11,7 @@ contract DeployNFT2 is Ownable {
 
     // ---- BaseURIs ----
     //TODO: update to proper metadata CID folder for this tier
-    string public constant BASEURI = "ipfs://QmVfqoFUZ1wKd6F2AUQ24hffVUgJGXqcaX7qs9ZYmvSsfP/";  
+    string public constant BASEURI = "ipfs://QmXRGqZosZQ5WEYhESzBhPq9gGNm24ewhEhMvCQC6hMtMK/";  
 
     // ---- Names & Symbols ----
     string private constant NAME = "BadSammy Rare";
