@@ -11,7 +11,7 @@ contract DeployNFT3 is Ownable {
 
     // ---- BaseURIs ----
     //TODO: update to proper metadata CID folder for this tier
-    string public constant BASEURI = "ipfs://QmVfqoFUZ1wKd6F2AUQ24hffVUgJGXqcaX7qs9ZYmvSsfP/";  
+    string public constant BASEURI = "ipfs://Qmd6RikcpFU5noQnMgYrb2PsJSgAgHCSN5iRfT2mtTETUk/";  
 
     // ---- Names & Symbols ----
     string private constant NAME = "BadSammy Epic";   
