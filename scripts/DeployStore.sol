@@ -8,22 +8,22 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract DeployStore is Ownable {
     // ---- Addresses ----
     // TODO: put our contract/founder owner back in place after remix vm testing.
-    address constant CONTRACT_OWNER_MINT_TO = 0x832F90cf5374DC89D7f8d2d2ECb94337f54Dd537; // 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+    address constant CONTRACT_OWNER_MINT_TO = 0x3Cc463fd67146A6951062B85428b5f77828D5D09; // 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
 
     // TODO: put our Treasury wallet address back in after remix vm testing.
-    address payable public constant TREASURY = payable(0x643A87055213c3ce6d0BE9B1762A732e9E059536); // payable(0x6150518d33Cfa0e9B9afFd13795a1C2540c972d7);
+    address payable public constant TREASURY = payable(0xDa8291d1F21643c441d2637da5ae7F0990ab5678); // payable(0x6150518d33Cfa0e9B9afFd13795a1C2540c972d7);
 
     // TODO: make sure below is valid USDC address on Base.
-    address public constant USDC = 0x36952592150f3AED54c1EC3C85213e1eD5CC1559; // 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // USDC on Base chain
+    address public constant USDC = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913; // USDC on Base chain
 
     
     //TODO: set these to the various NFT addresses after they've been deployed
     // ---- Deployed contracts ----
-    address constant nft1 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
-    address constant nft2 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
-    address constant nft3 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
-    address constant nft4 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
-    address constant nft5 = 0x00279436D53101CC7Bd78770F7ACb07cf7B6aBCA;
+    address constant nft1 = 0xc74aE41BEBfB170f271Ec96600A16b566d6D64A6;
+    address constant nft2 = 0x1B0FDa0F0F923fa849434e4B8BC065D1aB066894;
+    address constant nft3 = 0xaBC906A76f46BC60f714F764e522d0e0f356FC2c;
+    address constant nft4 = 0x96F98ad43e7118FaDcfe4D5B3B5D2a3A2ac47c64;
+    address constant nft5 = 0x8c1052a761E584a9CA0456363BcA75ff720657c5;
 
     // ---- USDC Prices (ETH disabled) ----
     uint256 private constant USD1 = 100_000_000;    // $100

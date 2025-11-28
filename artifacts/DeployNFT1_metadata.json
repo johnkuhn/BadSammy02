@@ -366,11 +366,11 @@
 			]
 		},
 		"scripts/DeployNFT1.sol": {
-			"keccak256": "0xc526e7ca66501cc7ba6fa73004af87920446c3e36263b27ea357a21f6ebef285",
+			"keccak256": "0x0bb4cdf296d3f7613af52b3c5d31a513db7db018caef82e31954ff4ce450d8fd",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f864f7b54b0c23be6a852d1eaca3b198fc654991eb02d0df42adc2ce09b77fa5",
-				"dweb:/ipfs/QmRbxM9GmZ5t69RPyxVXBTrsg5oLajbntJAD3btGvj1T17"
+				"bzz-raw://59831e6ab00c32f576f57a6d003aaaff076b8d1422a3ed2d7f55e48507ee09b7",
+				"dweb:/ipfs/QmZkS5QoGSyDHukUMkyRYJsBWGRKpySk4Yrcgztr2oGsGj"
 			]
 		}
 	},

@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract DeployNFT4 is Ownable {
     // ---- Addresses ----
     // TODO: put our contract/founder owner back in place after remix vm testing.
-    address constant CONTRACT_OWNER_MINT_TO = 0x832F90cf5374DC89D7f8d2d2ECb94337f54Dd537; // 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+    address constant CONTRACT_OWNER_MINT_TO = 0x3Cc463fd67146A6951062B85428b5f77828D5D09; // 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
 
     // ---- BaseURIs ----
     //TODO: update to proper metadata CID folder for this tier
