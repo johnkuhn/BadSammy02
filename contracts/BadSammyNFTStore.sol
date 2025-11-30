@@ -30,7 +30,6 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
 
     // tierId => configuration
     mapping(uint256 => Tier) public tiers;
-
     address payable public treasury;  // Receives USDC payments
     IERC20 public USDC;     // Payment token (USDC)
 
@@ -174,6 +173,7 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
         buyWithUSDC(tierId);
     }*/
 
+    /*
     function buyWithUSDCPermit(
         uint256 tierId,
         uint256 quantity,
@@ -197,6 +197,48 @@ contract BadSammyNFTStore is ReentrancyGuard, Ownable, IERC721Receiver {
 
         buyWithUSDC(tierId, quantity);
     }
+    */
+
+    function buyWithUSDCPermit(
+        uint256 tierId,
+        uint256 quantity,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external nonReentrant {
+        Tier memory t = tiers[tierId];
+        if (t.nft == address(0)) revert InvalidTier();
+        if (!t.enabled || t.priceUsdc == 0) revert TierDisabled();
+        if (quantity == 0) revert PaymentIncorrect();
+
+        uint256 requiredTotal = t.priceUsdc * quantity;
+        require(value == requiredTotal, "permit value mismatch");
+
+        // 1️⃣ Process Permit
+        IERC20Permit(address(USDC)).permit(
+            msg.sender,
+            address(this),
+            value,
+            deadline,
+            v,
+            r,
+            s
+        );
+
+        // 2️⃣ Transfer USDC
+        bool success = USDC.transferFrom(msg.sender, treasury, value);
+        if (!success) revert PaymentIncorrect();
+
+        // 3️⃣ Transfer the NFTs 
+
+        for (uint256 i = 0; i < quantity; i++) {
+            uint256 tokenId = _nextToken(t.nft);
+            IERC721(t.nft).safeTransferFrom(address(this), msg.sender, tokenId);
+        }
+    }
+
 
 
     // ================================
