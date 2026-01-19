@@ -26,11 +26,11 @@ contract DeployStore is Ownable {
     address constant nft5 = 0x8c1052a761E584a9CA0456363BcA75ff720657c5;
 
     // ---- USDC Prices (ETH disabled) ----
-    uint256 private constant USD1 = 100_000_000;    // $100
-    uint256 private constant USD2 = 250_000_000;    // $250
-    uint256 private constant USD3 = 500_000_000;    // $500
-    uint256 private constant USD4 = 1_000_000_000;  // $1,000
-    uint256 private constant USD5 = 2_500_000_000;  // $2,500
+    uint256 private constant USD1 = 10_000_000;    // $10
+    uint256 private constant USD2 = 20_000_000;    // $20
+    uint256 private constant USD3 = 50_000_000;    // $50
+    uint256 private constant USD4 = 100_000_000;  // $100
+    uint256 private constant USD5 = 200_000_000;  // $200
     
 
     BadSammyNFTStore public store;

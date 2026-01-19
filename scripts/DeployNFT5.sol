@@ -12,14 +12,14 @@ contract DeployNFT5 is Ownable {
 
     // ---- BaseURIs ----
     //TODO: update to proper metadata CID folder for this tier
-    string public constant BASEURI = "ipfs://QmaJUpUqt95ztprbgpkkXaVk2o3aoft4XBcndQ4EqaHmU6/";  
+    string public constant BASEURI = "ipfs://QmU8yFGasW3iw1Lwt2525zprSTFifa4kLCmXKSY6wFGKk4/";  
 
     // ---- Names & Symbols ----
     string private constant NAME = "BadSammy Ultra Rare";
     string private constant SYMBOL = "BSULR";
 
     // ---- Supply----
-    uint256 private constant TOTAL_SUPPLY = 100;
+    uint256 private constant TOTAL_SUPPLY = 500;
     
     // ---- Deployed contracts ----
     BadSammyNFT public thisNFT;

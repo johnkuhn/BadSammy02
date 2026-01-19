@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
@@ -193,7 +193,7 @@
 		"compilationTarget": {
 			"scripts/DeployNFT1.sol": "DeployNFT1"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -366,11 +366,11 @@
 			]
 		},
 		"scripts/DeployNFT1.sol": {
-			"keccak256": "0xc80f37c191e72f1650947fd68fa31a169e6552ffe0269418b7298436376865f7",
+			"keccak256": "0x035f6c23df589f70064cb124f37ae4e20808b4f68920d57ecd2cf2df7157d19b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://656076011662a78984222d7450df30c3c2d1b25f192415202af9e4a835b834cb",
-				"dweb:/ipfs/QmYdbzW26wuLsYfGH24ANC9npkYpXH43VAZxthKVvEmLKa"
+				"bzz-raw://1b388b72927e2682d460dd106fc760bd467e279f179bb6492d191d120070b1bd",
+				"dweb:/ipfs/QmQatPCPrZ5zrUFtpm1hyxptQiLEiyphweyAMP4kZqE11u"
 			]
 		}
 	},

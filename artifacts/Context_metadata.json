@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
@@ -18,9 +18,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/BadSammyMainTokenContract.sol": "Context"
+			"contracts/BadSamToken.sol": "Context"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -32,12 +32,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/BadSammyMainTokenContract.sol": {
-			"keccak256": "0x598c4c118c829ec8a72d08f4eb81d0688b782d87ea9b2f47226e13607aaf4481",
+		"contracts/BadSamToken.sol": {
+			"keccak256": "0x8fbfa7d2fbe85bddd0a6d781a7ef64f87432894b78e3b4742d8437831cfd4c36",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b48d6f12d1320b4791616a1d328a2f32c7bb4b10a11462ef94ef3dec66baaa2d",
-				"dweb:/ipfs/QmZTWnxAm45sZRHBvCWuWg7hGwDshn8zz7L58eKqkWmnzD"
+				"bzz-raw://f0f766754dca334c76d11594646c470a549f9e47177247b3031e83364fb6c67d",
+				"dweb:/ipfs/QmXuG8YmWnpPXrWVwS4C6JYmZWBeh4NHXS3q631oguPzSj"
 			]
 		}
 	},
