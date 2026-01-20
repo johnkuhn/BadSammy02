@@ -19,7 +19,7 @@ contract DeployStore is Ownable {
     
     //TODO: set these to the various NFT addresses after they've been deployed
     // ---- Deployed contracts ----
-    address constant nft1 = Update_ME;
+    address constant nft1 = 0x30Aee27ba8927E4Dc4F0b4e8dFde1C8b33fC0c69;
     address constant nft2 = 0x4712603746Fa727eDDe59bdC930AF12D07317901;
     address constant nft3 = 0x90A855045e7baffF24dcE6D8145c45a1F0c91368;
     address constant nft4 = 0x099FfDbE7b590141057B962D401279de3c4f65D4;
